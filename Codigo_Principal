@@ -1,0 +1,1303 @@
+
+
+def printsTipoSequencia():
+    print("******************************************************************************************* ")
+    print("      Deseja inserir que tipo de sequencia ? \n ")
+
+    print("     A.- Escrita manualmente  .                   B.- Escolhendo o tamanho de uma sequencia aleatoria .  ")
+    print("     C.- Escrita manualmente anteriormente.       D.- Sequencia escolhida aleatoriamen te anteriormente . \n")
+
+    print("     S. Sair do programa .                    V. Ir para um outro menu  ")
+    print("******************************************************************************************* \n")
+def proteina(x):
+    for i in range(len(x)):
+        i = i + 3
+        x =" ".join(a1seq)
+    print(x)
+def menuP():
+    printsTipoSequencia()
+    opcao =input(" \t")
+    if opcao == 'a' or opcao == 'A':
+        a1()  # vai buscar a funcao para intruduzir uma sequencia
+        proteina(a1seq)
+        menu1()
+    # menu 1db
+    elif opcao == 'b' or opcao == 'B':  # vai buscar a funcao para intruduzir uma sequencia
+        a2()  # vai a funcao a41 com a sequencia aleatoria para mostrar as ocorencias e os indices
+        a41(a2seq)
+        menu1()
+    # menu 1dc
+    elif opcao == 'c' or opcao == 'C':  # vai buscar a sequencia escrita no menu1.a escrita anteriormente
+        try:
+            a41(a1seq)
+        except:
+            print(" Não existe nenhuma sequencia guardada .")
+            a1()
+            a41(a1seq)
+
+        menu1()
+    # menu 1dd
+    elif opcao == 'd' or opcao == 'D':  # vai buscar a sequencia escrita no menu1.a escrita anteriormente
+        try:
+            a41(a2seq)
+        except:
+            print(" Não existe nenhuma sequencia guardada .")
+            a2()
+            a41(a2seq)
+        menu1()
+
+    elif (opcao1 == 'v' or opcao1 == 'V'):  # serve para escolher os menus que deseja ir
+        menuV()
+
+    elif (opcao1 == 's' or opcao1 == 'S'):  # serve para sair do programa
+        sys.exit("\t SAIU DO PROGRAMA ")
+
+    else:  # caso nao responda a nenhuma escolha volta ao menu 1
+        print(" Nao respondeu com nenhuma letra ")
+        menu1()
+
+
+def menu_Inicial():
+    print("\t MENU INICIAL ")
+    print("******************************************************************************************")
+    print("     Para qual menu deseja ir ?\n ")
+    print("     1.-Analisar uma sequência                2.-Analisar um conjunto de sequências")
+    print("     3.-Alinhar sequências                    4.-Operações com ficheiros de sequências ")
+    print("     5.-Visualizar                            \033[0;31mS.-Caso deseje sair do programa \033[m  ")
+
+    print("     P.Transoformar em proteinas !            D. fazer dowload !!!!!! ")
+    print("******************************************************************************************* \n")
+
+    # Quando o utilizador escrever um numero de 1-6 e os if's iram indicar qual a funcao ou seja qual o menu
+    opcaoDoMenu = input("\t ")
+
+    if (opcaoDoMenu == '1'):
+        menu1()
+
+    elif (opcaoDoMenu == '2'):
+        menu21()
+
+    elif (opcaoDoMenu == '3'):
+        menu3()
+
+    elif (opcaoDoMenu == '4'):
+        menu4()
+
+    elif (opcaoDoMenu == '5'):
+        menu5()
+    elif opcaoDoMenu == 'p' or opcaoDoMenu == 'P':
+        menuP()
+
+    elif (opcaoDoMenu == 's' or opcaoDoMenu == 'S'):
+        sys.exit("\t SAIU DO PROGRAMA ")
+
+    else:
+        print(" \nNão intruduziu nunhum carater da lista \n")
+        menu_Inicial()
+
+
+# _____________________________________________________________________menu_1______________________________________
+# exercicio 1 a
+def a1():
+    global a1seq                                                                                                        # declarar variavel global para se utilizar no resto do programa
+    a1seq = input("Intruduza uma sequencia com apenas as letras: A, T, C, G ( caso queira voltar ao menu anterior escreva v ) \n")  # pedido da sequencia
+    if a1seq == 'v' or a1seq == 'V':                                                                                     # se o utilizador se enganar na letra
+        menu1()
+    if a1seq == '':                                                                                                     # caso nao a sequencia nao exista volta para o menu anterior
+        a1()
+    a1seq = a1seq.upper()                                                                                               # aumentar a sequencia para letras grandes(ATGC)
+
+    for i in range(len(a1seq)):                                                                                         # for serve para analizar cada letra da sequencia
+        if a1seq.upper()[i] != 'A' and a1seq.upper()[i] != 'C' and a1seq.upper()[i] != 'G' and a1seq.upper()[i] != 'T': # o if serve para verificar se na sequencia so contem ATGC caso contrario volta a pedir uma nova sequencia
+            print(" Esta sequencia não existe porque intruduziu letra(s) que nao sao A, T, G ou C ")
+            a1()  # ciclo que com que a seuqencia maunal so contenha  ATCG
+
+# exercicio 1b
+def a2():
+    global a2seq                                                                                                        # declarar variavel global para se utilizar no resto do programa
+    try:                                                                                                                # try serve para caso o utilizador intruduza uma letra em vez de numeros
+        x = int(input(" Quantas letras deseja conter a sequencia aleatoria ? (se quiseres voltar para tras carrega v) "))
+        a2seq = ""                                                                                                      # criacao de uma variavel igual que nao tem nada
+        letters = ["A", "C", "T","G"]                                                                                   # lista (conjunto) que limita a sequencia( a sequencia aleatoria so vai conter estes carateres
+        samp = sample(letters * x, x)
+        a2seq = "".join(samp)                                                                                           # sequencia que nao vai cconter nada entre as letras
+        print(a2seq)
+    except:                                                                                                             #except serve para caso de o utilizador intruduzir uma letra
+        print("\n\tOPS, não intruduzio nenhum numero , volte a tentar XD \n")                                           # ,entao deteta o erro e volta a perguntar quantas letra vai conter a sequencia aleatoria vai conter
+        a2()
+    return a2seq
+
+
+# exercicio 1d
+
+def a41(x):                                                                                                             # Esta funcao procura 1 elemento numa sequencia
+    elemento = input(" Degite o elemento a ser procurado \n").upper()                                                   # pergunta qual elemento edseja procurar
+    lista = []
+    cont = 0                                                                                                            # variavel cont=0 serve para no final termos cont= ao nº de elementos na sequencia
+                                                                                    # fazer con que de para 2 digitos
+    for i in range(len(x)):                                                                                             # for serve para ler cada indice ate ao comprimenta da seqeuncia que e escrita no logar de x
+        if x[i] == elemento:                                                                                            # if serve para quando o elemento for igual a base na sequncia
+            cont = cont + 1
+            lista.append(i)                                                                                             # acresncenta a lista o indices em que a base e igual ao elemnto
+    print(x)
+    print(" O elemento ", elemento.upper(), " esta escrito ", cont, " vezes na sequencia que digitalizou, nos indices ",lista)
+
+
+# exercicio 1e
+def a50(x):
+
+    print("\n E as letras A, T, G e C tem as sequintes frequencias :\n")
+    cont = 0                                                                                                            # os cont's servem como vaiaveis para contar cada base
+    cont1 = 0
+    cont2 = 0
+    cont3 = 0
+    for i in range(len(x)):                                                                                             # ver cada letra da sequencia e se for atcg adiciona ao respetivo cont
+        if x[i] == 'A' or x[i] == 'a':
+            cont = cont + 1
+        elif x[i] == 'T' or x[i] == 't':
+            cont1 = cont1 + 1
+        elif x[i] == 'G' or x[i] == 'g':
+            cont2 = cont2 + 1
+        elif x[i] == 'C' or x[i] == 'c':
+            cont3 = cont3 + 1
+    print(" A letra A tem", round((cont / len(x)) * 100), "%(", round((cont / len(x)) * 100, 3), "%)", "com", cont,
+          "digitos")
+    print(" A letra T tem", round((cont1 / len(x)) * 100), "%(", round((cont1 / len(x)) * 100, 3), "%)", cont1,
+          "digitos")
+    print(" A letra G tem", round((cont2 / len(x)) * 100), "%(", round((cont2 / len(x)) * 100, 3), "%)", cont2,
+          "digitos")
+    print(" A letra C tem", round((cont3 / len(x)) * 100), "%(", round((cont3 / len(x)) * 100, 3), "%)", cont3,
+          "digitos")
+
+
+# exercicio 1f
+def f1(x):
+    global a                                                                                                            # variavel global para utilizar no resto do programa
+    b = x.replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g')
+    a = b.upper()                                                                                                       # SE se trocar A com T(grande) vai acontecer um loop infinito,
+                                                                                                                #pelo que substitui se por uma letra grande por uma lettra pequena e depois
+                                                                                                                        #transforma se numa sequencia grande
+
+# menu 1
+def menu1():  # menu que serve para :analisar uma sequencia
+
+    print("\n\t \033[0;34m ANALIZAR UMA SEQUENCIA . \033[m ")                                                           #prints para fazer um menu
+    print("******************************************************************************************* ")               # numero sao as cores
+    print("     a. Inserir manualmente uma sequência( não se esqueca que vai apagar a estava escrita ) .")
+    print("     b. Gerar uma sequência aleatória (considere o conjunto de nucleótidos A, T, G, C) .")
+    print("     c. Mostrar o número total de elementos da sequência .")
+    print("     d. Mostrar o número de ocorrências de uma determinada base ou sub-sequência e uma lista dos respetivos índice .")
+    print("     e. Mostrar as frequências de um determinado conjunto de bases ou sub-sequências (número total e relativo(%) de cada base) .")
+    print("     f. Mostrar uma sequência complementar (trocam os ‘A’ e ‘T’, ‘G’ e ‘C’) ")
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu .")
+    print("******************************************************************************************* \n")
+
+    opcao1 = input(" \n Escolha a opcao que deseja fazer ? \n ")                                                        #qual a opcao do menu que o utilizador quer fazer
+                                                                                                                        # CADA OPOCAO (a,b,c,d,e,) IRÁ CONTER UM SUBMENU PARA DE TIPO DE SEQUENCIAS
+    if len(opcao1)==1:
+        if (opcao1 =='a' or opcao1 =='A'):  #a1
+            a1()                                                                                                            #caso 'opcao a' vai para a funcao que ecreve e verifica a sequencia
+            menu1()                                                                                                         # quando acabar de intruduzir a sequencia  volta para o menu 1 (analizar uma sequencia)
+
+        elif (opcao1 == 'b' or opcao1== 'B') :
+            a2()                                                                                                            #caso 'opcao b' vai para a funcao que ecreve o numero da sequencia
+            menu1()                                                                                                         # quando acabar de intruduzir a sequencia  volta para o menu
+
+        elif (opcao1 == 'c' or opcao1 == 'C'):
+            printsTipoSequencia()                                                                                           # funcao que chama aos o menu com os tipos de sequencia
+            opcao = input(" \n Escolha a opcao que deseja fazer ? ")                                                        # a escolha do utilizador
+            #menu 1ca    x                                                                                                    # os if's e os elif's servem cada tipo de sequencia
+            if opcao == 'a' or opcao == 'A':                                                                                # saber o comprimento da sequencia escrita no momento
+                a1()
+                print("A sequencia que escreveu manualmente tem", len(a1seq), "digitos")
+                menu1()
+            #menu 1cb
+            elif (opcao == 'b' or opcao == 'B'):                                                                            # saber o comprimento de uma sequencia aleatoria escrita no momento
+                a2()
+                print("A sequencia que escreveu manualmente tem", len(a2seq), "digitos")
+                menu1()
+            #menu 1cc
+            elif opcao =='c' or opcao == 'C':
+                try:                                                                                                        # se nao nao contiver sequencia da erro :NameError: name 'a1seq' is not defined
+                    print(" A sequencia que escreveu manualmente tem", len(a1seq), 'digitos')                               # o utilizador nao escreveu nenhuma sequencia na alineia 1.a caso contrario executa o except
+                    menu1()
+                except:
+                    print(" Não intruziu nunhuma sequencia manual anteriormente ")
+                    print("***********************************************************************************\n")
+                    print("     1.-Deseja intruduzir agora a sequencia para saber o tamanho ?")
+                    print("     2.-Volta para o menu 1( analizar uma sequencia) ?")
+                    print("     3.-Volta para o menu inicial ?\n")
+                    print("**********************************************************************************")
+                    erro = input("\t ")
+                    if erro =='1':
+                        a1()
+                        print(" A sequencia  que escreveu na alinea 1.a (escrita manualmente) tem", len(a1seq), 'digitos')
+                        menu1()
+                    elif erro == '2':
+                        menu1()
+                    elif erro == '3':
+                        menu_Inicial()
+                    else:
+                        menu1()
+            #menu 1cd
+            elif opcao== 'd' or opcao == 'D':
+                try:                                                                                                        # se nao nao contiver sequencia da erro :NameError: name 'a2seq' is not defined
+                    print(" A sequencia aleatoria tem", len(a2seq), 'digitos')                                              # o utilizador nao escreveu nenhuma sequencia na alineia 1.b caso contrario executa o except
+                    menu1()
+                except:
+                    print(" Não intruziu nunhuma sequencia anteriormente ")
+                    print("***********************************************************************************\n")
+                    print("     1.-Deseja intruduzir agora a sequencia para saber o tamanho ?")
+                    print("     2.-Volta para o menu 1( analizar uma sequencia) ?")
+                    print("     3.-Volta para o menu inicial ?\n")
+                    print("**********************************************************************************")
+                    erro = input("\t ")
+
+                    if erro == '1':
+                        a2()
+                        print(" A sequencia aleatoria tem", len(a2seq), 'digitos')
+                        menu1()
+                    elif erro == '2':
+                        menu1()
+                    elif erro == '3':
+                        menu_Inicial()
+                    else:
+                        menu1()
+
+            elif (opcao == 'v' or opcao == 'V'):                                                                            # voltar para outro menu utiliza se o menu v de voltar
+                menuV()
+
+            elif (opcao == 's' or opcao == 'S'):                                                                            # caso o utilizador queira sair do programa aparece uma mensagem
+                sys.exit("\t SAIU DO PROGRAMA ")
+
+            else:                                                                                                           # caso nenhuma das opcao a,b,c,d,e,v,s o programa devolve uma mensagem e volta de novo para o inicio do menu
+                print(" \nNão intruduziu nunhum carater da lista \n")
+                menu1()
+
+        elif (opcao1 == 'd' or opcao1 == 'D'):
+            printsTipoSequencia()                                                                                           # vai buscar os print's  do varios tipos de seqquencias
+            opcao = input(" \t ")                                                                                           # a escolha do utilizador vai para a variavel opcao
+            #menu 1da
+            if opcao == 'a' or opcao=='A':
+                a1()                                                                                                        # vai buscar a funcao para intruduzir uma sequencia
+                a41(a1seq)                                                                                                  # vai a funcao a41 com a sequencia para mostrar as ocorencias e os indices
+                menu1()
+            #menu 1db
+            elif opcao == 'b' or opcao =='B':                                                                               # vai buscar a funcao para intruduzir uma sequencia
+                a2()                                                                                                # vai a funcao a41 com a sequencia aleatoria para mostrar as ocorencias e os indices
+                a41(a2seq)
+                menu1()
+            #menu 1dc
+            elif opcao == 'c' or opcao == 'C':                                                                              #vai buscar a sequencia escrita no menu1.a escrita anteriormente
+                try:
+                    a41(a1seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a1()
+                    a41(a1seq)
+
+                menu1()
+            #menu 1dd
+            elif opcao =='d' or opcao =='D':                                                                                #vai buscar a sequencia escrita no menu1.a escrita anteriormente
+                try:
+                    a41(a2seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a2()
+                    a41(a2seq)
+                menu1()
+
+            elif (opcao1 == 'v' or opcao1 == 'V'):                                                                          #serve para escolher os menus que deseja ir
+                menuV()
+
+            elif (opcao1 == 's' or opcao1 == 'S'):                                                                          #serve para sair do programa
+                sys.exit("\t SAIU DO PROGRAMA ")
+
+            else:                                                                                                           #caso nao responda a nenhuma escolha volta ao menu 1
+                print(" Nao respondeu com nenhuma letra ")
+                menu1()
+
+        elif (opcao1 == 'e' or opcao1 == 'E'):
+            printsTipoSequencia()
+            opcao = input(" \t ")
+            #menu 1ea
+            if opcao == 'a' or opcao == 'A':                                                                                #opcoes para o tipo de sequencia
+                a1()
+                a50(a1seq)                                                                                                  # vai buscar a funcao a50 para dizer a percentagem de A;T;G;C da sequencia(a,b,c,d)
+                menu1()
+            # menu 1eb
+            elif opcao == 'b' or opcao == 'B':
+                a2()
+                a50(a2seq)
+                menu1()
+            # menu 1ec
+            elif opcao == 'c' or opcao == 'C':
+                try:
+                    a50(a1seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a1()
+                    a50(a1seq)
+                menu1()
+            # menu 1ed
+            elif opcao == 'd' or opcao == 'D':
+                try:
+                    a50(a2seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a2()
+                    a50(a2seq)
+                menu1()
+
+            elif (opcao1 == 'v' or opcao1 == 'V'):
+                menuV()
+
+            elif (opcao1 == 's' or opcao1 == 'S'):
+                sys.exit("\t SAIU DO PROGRAMA ")
+            else:
+                print(" Nao respondeu com nenhuma letra ")
+                menu1()
+
+        elif (opcao1 == 'f' or opcao1 == 'F'):                                                                              #opcoes para o tipo de sequencia
+            printsTipoSequencia()                                                                                           # vai buscar a funcao af1 para dizer a complementar da sequencia(a,b,c,d)
+            opcao = input(" \t ")
+            # menu 1fa
+            if opcao == 'a' or opcao == 'A':
+                a1()
+                f1(a1seq)
+                menu1()
+            # menu 1fb
+            elif opcao == 'b' or opcao == 'B':
+                a2()
+                f1(a2seq)
+                menu1()
+            # menu 1fc
+            elif opcao == 'c' or opcao == 'C':
+                try:
+                    f1(a1seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a1()
+                    f1(a1seq)
+                menu1()
+            # menu 1fd
+            elif opcao == 'd' or opcao == 'D':
+                try:
+                    f1(a2seq)
+                except:
+                    print(" Não existe nenhuma sequencia guardada .")
+                    a2()
+                    f1(a2seq)
+                menu1()
+            elif (opcao1 == 'v' or opcao1 == 'V'):
+                menuV()
+
+            elif (opcao1 == 's' or opcao1 == 'S'):
+                sys.exit("\t SAIU DO PROGRAMA ")
+
+            else:
+                print(" Nao respondeu com nenhma letra ")
+                menu1()
+
+        elif (opcao1 == 'v' or opcao1 == 'V'):                                                                              # caso o utilizador deseje ir para outro menu
+            menuV()
+
+        elif (opcao1 == 's'or opcao1=='S'):                                                                                 # caso o utilizador deseje sair do programa
+            sys.exit("\t SAIU DO PROGRAMA ")
+
+        else:                                                                                                               # se nao intruduzir nunhma das letras (a,b,c,d,e,f,v,s)
+            print(" Nao intruduziu nenhum dos carateres anteriores ")
+            menu1()
+
+    else:                                                                                                               #caso o utilizador escreva mais do que a letra
+        print(" Não intruduziu apenas uma letra .")
+        menu1()
+
+# _____________________________________________________________________menu 2___________________________________
+
+
+# exercicio 2a
+def menu2a():
+    printsTipoSequencia() # chama a funcao com os print's do tipos de sequencia
+    opcao =input(" \t ")
+                                                                                                                     # caso o utilizador escreva nao apenas um digito
+    if opcao=='a' or opcao =='A':                                                                                   # esta funcao vai pegar nas sequencias que o utilizador quiser e intruduzi-las
+        n = int(input(" Quantas sequencia vai intruduzir ?"))
+        for i in range(n):
+            a1()
+            a2menuseqlista.append(a1seq)
+    elif opcao == 'b' or opcao == 'B':
+        n = int(input(" Quantas sequencia vai intruduzir ?"))
+        for i in range(n):
+            a2()
+            a2menuseqlista.append(a2seq)                                                                                               # escreve a sequencia e depois acrescenta a lista para fazer outras operacoes
+    elif opcao == 'c' or opcao == 'C':
+        try:
+            a2menuseqlista.append(a1seq)                                                                                    # vai busrcar a sequencia escria anteriormente para acrescentar a lista
+            print(" A(s) sua(s) sequencia(s) foi(foram) guardada(s)")
+        except:
+            print("Não existe nenhuma sequencia guardada")
+            n = int(input(" Quantas sequencia vai intruduzir ?"))
+            for i in range(n):
+                a1()
+                a2menuseqlista.append(a1seq)
+            print(" A(s) sua(s) sequencia(s) foi(foram) guardada(s)")
+    elif opcao == 'd' or opcao == 'D':
+        try:
+            a2menuseqlista.append(a2seq)                                                                                    # vai busrcar a sequencia escria anteriormente para acrescentar a lista
+            print(" A(s) sua(s) sequencia(s) foi(foram) guardada(s)")
+
+        except:
+            print("Não existe nenhuma sequencia guardada")
+            n = int(input(" Quantas sequencia vai intruduzir ?"))
+            for i in range(n):
+                a2()
+                a2menuseqlista.append(a2seq)
+            print(" A(s) sua(s) sequencia(s) foi(foram) guardada(s)")
+    elif (opcao1 == 'v' or opcao1 == 'V'):                                                                          # se o utilizador quiser ir para um outro menu
+        menuV()
+    elif opcao == '':
+        print( "Não intruduziu nenhum carater")
+    elif (opcao1 == 's'or opcao1=='S'):                                                                             # se o utilizador desejar sair do programa
+        sys.exit("\t SAIU DO PROGRAMA ")
+    else:                                                                                                           # caso o utilizador tenha digitado um carater estranho
+        print(" Não intruduziu nenhuma das letras do menu ")
+        menu2a()
+
+
+# exercicio 2b
+def menu2belse():
+    print( "**********************************************************************")  # existem 2 tipos de remocao: escolha de uma sequencia ou de um numero
+    print("     1. Quer ESCREVER a sequencia que quer remover ?")
+    print("     2. Quer ESCOLHER POR NUMEROS a sequencia que quer remover ?")
+    print("***********************************************************************")
+
+    qual = input("\n Qual das opcoes deseja para remover a sequencia : ")
+    if qual == '1':  # escolha da escrita da da sequencia (tem que digitar a sequencia )
+        qualseq = input("Escreva a sequencia que quer remover: ").upper()
+        print(" A sequencia que secreveu tem", len(qualseq), "carateres")
+        for i in range(len(a2menuseqlista)):  # quando a sequencia ja grande for igual a sequencia que a pessoa escolheu
+            if qualseq.upper() == a2menuseqlista[i]:  # remove a sequencia
+                a2menuseqlista.remove(qualseq)
+        print(a2menuseqlista)
+
+    elif qual == '2':  # escolha do numero da sequencia ,cada sequencia tem um numero
+        print(a2menuseqlista, "\n")
+        for i in range(len(a2menuseqlista)):
+            print(i + 1, "-corresponde a sequencia -->", a2menuseqlista[i])
+
+        escolha = int(input(" Qual Numero da sequencia que quer remover ? "))
+        for i in range(len(a2menuseqlista)):
+            if escolha == i + 1:
+                a2menuseqlista.remove(a2menuseqlista[i])
+        print("A sequencia ja foi removida :\t ", a2menuseqlista)
+
+    elif qual == '':  # caso o utilizador nao escreva nada tem que fazer do inicio
+        print(" Não intruduziu nenhum numero ")
+        menu2b()
+
+    else:
+        print("Não intruduziu 1,nem 2, volte a tentar")
+        menu2belse()
+def menu2b():
+    if len(a2menuseqlista) == 0:                                                                                        # se a lista nao contever nada , nao se pode remover nada
+        print(" Não existe nenhuma sequencia .Intruduza a sequencia na opcao A.\n")
+        menu2(a2menuseqlista)
+    else:                                                                                                               # se existirem sequencias pode se escolher o metodo melhor para remover
+        menu2belse()
+    menu2(a2menuseqlista)
+
+# execicio 2c2
+def menu2c(x):
+    global elemento,cont
+    lista = []                                                                                                          # declara uma variavel global para uilizar no resto programa
+    cont = 0
+    print(x)
+    print(" Qual a sequencia que deseja procurar a base ?")
+    for i in range(len(x)):
+        print(i + 1, "-corresponde a sequencia -->", x[i])
+
+
+    escolha = int(input(" Qual Numero da sequencia que quer ver o numero de ocorencias da base procurada ? "))
+    elemento = input(" Degite o  base a ser procurado .\n").upper()  # perguntar qual o elemento (atcg)que quer excrever
+
+    for i in range(len(x)):
+        if escolha == i + 1:
+
+            for e in range(len(x[i])):
+                if elemento.upper() == x[i][e]:
+                    cont = cont + 1
+                    lista.append(e+1)                                                                                                    # acrescenta as posicoes do elemento
+    print("A base",elemento,"está escrito",cont," vezes ,no indices",lista)
+    print(" A base",elemento,"tem", round((cont/(len(x[i])))*100),"% com",cont,"digitos em",len(x[i]))
+
+
+def menu2d():
+    menu2c(a2menuseqlista)
+    menu2(a2menuseqlista)
+
+def menu2e():
+    print(a2menuseqlista)
+    if len(a2menuseqlista) == 0:
+        printsTipoSequencia()
+        print(" so existe a opcao A ")
+        qual = input(" \t ")
+        # fazer as 4 opcoes que faltam
+        if qual == 'a' or qual == 'A':
+            try:
+                n = int(input(" Quantas sequencias vai intruduzir ? "))
+                for i in range(n):
+                    a1seq = input(" Intruduza uma sequencia com apenas as letras: A, T, C, G ( caso queira voltar ao menu anterior escreva v ) \n")
+                    a1seq = a1seq.upper()
+                    for i in range(len(a1seq)):
+                        if a1seq.upper()[i] != 'A' and a1seq.upper()[i] != 'C' and a1seq.upper()[i] != 'G' and a1seq.upper()[i] != 'T':
+                            print(" Esta sequencia não existe porque intruduziu letra(s) que nao sao A, T, G ou C ")
+                            menu2e()  # ciclo que com que a seuqencia maunal so contenha  ATCG
+                    a2menuseqlista.append(a1seq)
+                    menu2e1()
+            except:
+                print("Não digitou nenhum numero .")
+                menu2e()
+    else:
+        print(a2menuseqlista)
+        menu2e1()
+
+def menu2e1(x):
+    print("****************************************************************************************************")
+    print("     Deseja a complementar :")
+    print("     1.-De uma sequencia ?  ")
+    print("     2.-De todas as sequencia ?")
+    print("****************************************************************************************************\n")
+    opcao= input(" \t ")
+    if opcao =='1':
+        print(" Deseja a complementar de que sequencia ?",x)
+        for i in range(len(x)):
+            print(i + 1, "-corresponde a sequencia -->", x[i])
+
+        escolha = int(input(" Deseja saber a sequencia complemntar de que sequencia( Escreva o Numero ) ? "))
+        for i in range(len(x)):
+            if escolha == i + 1:
+                menu2(a2menuseqlista)
+
+# menu que serve para : Operacoes com ficheiros de sequencias
+def menu21():
+
+    print("\n\t \033[0;32mOperacoes com ficheiros de sequencias .\033[m")
+
+    global a2menuseqlista                                                                                               # Variavel global que serve para utilizar no programa tudo
+    print("******************************************************************************************* ")
+    print("     O que deseja fazer ? \n")
+    print("     a. Carregar as sequências guardadas num ficheiro  ")
+    print("     b. Guardar uma sequência ou lista de sequências num ficheiro ")
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu  ")
+    print("******************************************************************************************* \n")
+    opcao1 = input("\t ")
+
+    if (opcao1 == 'a' or opcao1 == 'A'):
+        h =open(input("intruduza o caminho de um ficheiro"),'r+')
+        print(h)
+        h.read()  # Lê o ficheiro
+        h.close()
+
+    elif (opcao1 == 'b' or opcao1 == 'B'):
+        menu4b()
+
+    elif (opcao1 == 's'):
+        sys.exit("\t SAIU DO PROGRAMA ")
+
+    elif (opcao1 == 'v' or opcao1 == 'V'):
+        menuV()
+        a2menuseqlista = []                                                                                                 # a funcao menu21 serve para caso o utlizar nao tenha intruduzido, nenhuma sequencia
+    f1(a2menuseqlista[i])
+    print(" A sequencia complementar de",a2menuseqlista[i]," é", a)
+
+
+'''
+    elif opcao == '2':
+        lista1=[]
+        print(x)
+        for i in range(len(x)):
+            f1(x[i])
+            lista1.append(a)
+        print(" As sequencia complementares -->",lista1)
+    else:
+        print("Não intruduziu nenhuma das opcoes .")
+        menu2e1(a2menuseqlista)
+
+'''
+
+# menu para loops da intruducao de sequencias
+#e depois possa intruduzir mais apenas a partir do menu 2
+
+def menu2(x):  # menu que serve para : Analisar um conjunto de sequencias
+
+    print("\t \033[0;36mEscolheu Analisar um conjunto de sequencias\033[m ")
+    print("******************************************************************************************* ")
+    print("     O que deseja fazer ? \n")
+    print("     a. Inserir uma sequência (ou varias) numa lista vazia . ")
+    print("     b. remover uma sequência")
+    print("     c. mostrar o número de ocorrências de uma determinada base ou sub-sequência e uma lista dos respetivos índices, em cada uma das sequências  ")
+    print("     d. mostrar as frequências de um determinado conjunto de bases ou sub-sequências (número total e relativo(%) de cada base), em cada uma das sequências  ")
+    print("     e. mostrar as sequências complementares ")
+
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu  ")
+    print("     M.-MOSTRAR A SEQUENCIA QUE ESTA A TRABALHAR. ")
+    print("******************************************************************************************* \n")
+    opcao1 = input(" \t ")                                                                                              # a variavel vai guardar a opcao do utilizador para utilizar
+    if len(opcao1)== 1:                                                                                                 # if para o utilizador nao conseguir intruduzir mais do que uma letra
+        if (opcao1 == 'a' or opcao1 == 'A'):
+            menu2a()
+            menu2(a2menuseqlista)
+
+        elif (opcao1 == 'b' or opcao1 == 'B'):                                                                          # apenas chama a funcao menu2b
+            menu2b()
+
+        elif (opcao1 == 'c' or opcao1 == 'C'):                                                                          # se a lista estevir vazia , o utilizador recebe uma mensagem a dizer
+            if len(a2menuseqlista) == 0:                                                                                # que nao existe lista de sequencias para mostrar o nº de ocorrencias
+                print(" Não existe nenhuma sequencia ,intruduza primeiro.\n")
+                menu2a()
+                menu2c(a2menuseqlista)                                                                                                        ###### fazer com que intruduza uma sequencia para para
+            else:                                                                                                       # se existir sequencias na lista  chama a funcao menu2c
+                menu2c(a2menuseqlista)
+                print(a2menuseqlista)
+            menu2(a2menuseqlista)
+
+        elif (opcao1 == 'd' or opcao1 == 'D'):
+            if len(a2menuseqlista) == 0:
+                print(" Não existe nenhuma sequencia ,intruduza primeiro.\n")
+                menu2a()
+                menu2d()
+            else:
+                menu2d()
+                print(a2menuseqlista)
+            menu2(a2menuseqlista)                                                                                                    # chama apenas a funcao menu2d
+        elif (opcao1 == 'e' or opcao1 == 'E'):
+            if len(a2menuseqlista) == 0:
+                print(" Não existe nenhuma sequencia, intruduza primeiro .")
+                menu2a()
+                menu2e1(a2menuseqlista)
+            else:
+                menu2e1(a2menuseqlista)
+            menu2(a2menuseqlista)
+        elif (opcao1 == 'v' or opcao1 == 'V'):
+            menuV()
+        elif (opcao1 == 's'or opcao1=='S'):                                                                                 # caso o utilizador deseje sair do programa
+            sys.exit("\t SAIU DO PROGRAMA ")
+        elif opcao1 == 'm' or opcao1 == 'M':
+            print(" A lista :", a2menuseqlista)
+            menu2(a2menuseqlista)
+        elif opcao1 == '':                                                                                              # se so carregar enter escreve no ecra que nao intruduziu nada
+            print(" Nao escreveu nada ")
+            menu2(a2menuseqlista)
+        else:                                                                                                           # caso o utilizador intruduza um carater fora do comum ,volta ao menu 2
+            print(" Nao intruduziu nenhum dos carateres anteriores ")
+            menu2(a2menuseqlista)
+    else:                                                                                                               # se o utilizador escreve mais do que uma letra ,o programa volta ao menu 2
+        print(" Escrevra apenas uma letra .")
+        menu2(a2menuseqlista)
+# ____________________________________________________________________________menu 3_________________________
+#exercicio 3 opcao a
+
+def menu3a1(x):
+    qual = input("Qual o base que quer substituir (Vai substituir a base na sequencia toda ):\n ").upper()
+    for i in range(len(x)):
+        if x[i] == qual:
+            a = x.replace(x[i], '-')
+    print(a)
+
+
+
+
+def menu3a():
+        printsTipoSequencia()
+        opcao = input(" \t ")
+        if opcao == 'a' or opcao == 'A':
+            a1()
+            menu3a1(a1seq)
+        elif opcao =='b' or opcao =='B':
+            a2()
+            menu3a1(a1seq)
+        elif opcao == 'c' or opcao == 'C':
+            try:
+                print(a1seq)
+                menu3a1(a1seq)
+            except:
+                print("   ERRRRO! \n Não existe nunhuma sequencia guardada, escreva a sequencia para substituir uma base por '-' .")
+                a1()
+                menu3a1(a1seq)
+        elif opcao == 'd' or opcao == 'D':
+            try:
+                menu2a1(a2seq)
+            except:
+                print("   ERRRRO! \n Não existe nunhuma sequencia guardada, escreva a sequencia para substituir uma base por '-' .")
+                a2()
+                menu3a1(a2seq)
+        elif (opcao == 'v' or opcao == 'V'):
+             menuV()
+        elif (opcao == 's'or opcao=='S'):
+            sys.exit("\t SAIU DO PROGRAMA ")
+        else:
+            print(" Nao intruduziu nenhum dos carateres anteriores ")
+            menu3a()
+#exercicio 3 opcao b
+
+def menu3b1():
+        printsTipoSequencia()
+        opcao = input(" \t ")
+        if opcao == 'a' or opcao == 'A':
+            a1()
+            menu3b(a1seq)
+            menu3()
+        elif opcao =='b' or opcao =='B':
+            a2()
+            menu3b(a2seq)
+            menu3()
+        elif opcao == 'c' or opcao == 'C':
+            try:
+                menu3b(a1seq)
+            except:
+                print("   ERRRRO! \n Não existe nunhuma sequencia no menu 1.a, escreva a sequencia para substituir uma base por '-' .")
+                a1()
+                menu3b(a1seq)
+            menu3()
+        elif opcao == 'd' or opcao == 'D':
+            try:
+                menu3b(a2seq)
+            except:
+                print("   ERRRRO! \n Não existe nunhuma sequencia no menu 1.b, escreva a sequencia para substituir uma base por '-' .")
+                a2()
+                menu3b(a2seq)
+            menu3()
+        elif (opcao == 'v' or opcao == 'V'):
+            menuV()
+        elif (opcao == 's'or opcao=='S'):
+            sys.exit("\t SAIU DO PROGRAMA ")
+        else:
+            print(" Nao intruduziu nenhum dos carateres anteriores ")
+            menu1()
+
+
+
+#exercicio 3 opcao c
+
+def menu3b(x):
+
+    lista = []
+    lista1 = []
+    cont = 0
+    lista1.append(x)
+
+    base = input(" Para ajudar a sua vizulização ,indique a base anterior ao qual quer adicionar '-' ? ( Escreva apenas 'A','T','G','C') \n").upper()
+    if base.upper() != 'A' and base.upper() != 'C' and base.upper() != 'G' and base.upper() != 'T':
+        print(" A base que escolheu apagar não existe .\n ")
+        menu3b(x)
+    for i in range(len(x)):
+        if x[i] == base:
+            cont = cont + 1
+            lista.append(i)
+    print(x)
+    print(" A base esta nas seguintes posicoes : \n\t\t", lista, "\n")
+    x = "".join(x)
+    posicao = int(input(" Qual a posicao que deseja substituir por '-' (Não se esqueça que estas posicoes sao da base anterior\nEXEMPLO: GA-TT a base anterior é 'A': \t"))
+    print("Antes da de adicionar '-' -->", x)  # for nao serve de nada
+    x = x[:posicao + 1] + '-' + x[posicao + 1:]
+    print("Depois de adicionar '-' -->", x)
+
+    '''for i in range(len(lista)):
+        if posicao != lista[i]:
+            print(" Não intruduziu nenhuma posicao na lista ,volte a indicar.")
+            menu3b(x)
+'''
+
+def menu3ca():#------
+    global especie1
+    print(" Escreva a sequencias para mostrar a distancia de Hamming .")
+    especie1 = input(" Especie 1 : ").upper()
+    print("            ","|"*len(especie1),"O tamanho de '|' é o tamanho da Especie 1","\t"*8,"TAMANHO = ",len(especie1))
+    print("            ","|"*len(especie1))
+    for i in range(len(especie1)):
+        if especie1.upper()[i] != 'A' and especie1.upper()[i] != 'C' and especie1.upper()[i] != 'G' and especie1.upper()[i] != 'T':
+            print(" Esta sequencia não existe porque intruduziu letra(s) que escreveu não sao A, T, G ou C ")
+            menu3ca()
+    menu3ca1()
+    print(" A distancia de Hamming é",cont)
+
+
+
+def menu3ca1():#-----
+    global cont
+    especie2 = input(" Especie 2 : ").upper()
+    print("\t" * 15, "TAMANHO = ", len(especie2))
+    for i in range(len(especie2)):
+        if especie2.upper()[i] != 'A' and especie2.upper()[i] != 'C' and especie2.upper()[i] != 'G' and especie2.upper()[i] != 'T':
+            print(" Esta sequencia não existe porque intruduziu letra(s) que escreveu não sao A, T, G ou C ")
+            menu3ca1()
+    if len(especie1) == len(especie2):
+        cont = 0
+        for i in range(len(especie1)):
+            if especie1[i] != especie2[i]:
+                cont = cont + 1
+    else:
+        print(" As sequencias não tem o mesmo tamanho ,volte a tentar xD")  # fazer verificar para sair do loop
+        menu3ca()
+#exercicio 3 opcao d
+
+
+def menu3d():
+    print(" Escreva a sequencias para mostrar o número de matches e mismatches entre as duas sequências . ")
+    especie1 = input(" Especie 1 : ").upper()
+    for i in range(len(especie1)):
+        if especie1.upper()[i] != 'A' and especie1.upper()[i] != 'C' and especie1.upper()[i] != 'G' and \
+                especie1.upper()[i] != 'T':
+            print(" Esta sequencia não existe porque intruduziu letra(s) que escreveu não sao A, T, G ou C ")
+            menu3c()
+    especie2 = input(" Especie 2 : ").upper()
+    for i in range(len(especie2)):
+        if especie2.upper()[i] != 'A' and especie2.upper()[i] != 'C' and especie2.upper()[i] != 'G' and \
+                especie2.upper()[i] != 'T':
+            print(" Esta sequencia não existe porque intruduziu letra(s) que escreveu não sao A, T, G ou C ")
+            menu3c()
+    print("******************************************************************************")
+    print("     Qual metodo deseja ?")
+    print("                                 exemplos: \n")
+    print("      1.-com tracinhos antes: .  AAAAAAATTTT")
+    print("                                 ------AAATA \n")
+    print("      2.-com tracinhos depois .  AAAAAAAGGGGG")
+    print("                                 GGGGGC------   \n")
+    print(" Nota:A sequencia maior ficará sempre por cima.")
+    print("******************************************************************************")
+    opcao =input("\t ")
+    cont = 0
+    cont1 = 0
+    cont2 = 0
+    lista = []
+    lista1 = []
+    lista2 = []
+
+    if opcao == '1':
+        if len(especie1)>len(especie2):
+            tracinho=(len(especie1)-len(especie2))
+            print(especie1)
+            especie21= tracinho*'-' +especie2
+            print(especie21)
+            for i in range(len(especie1)):
+                if especie21[i] ==especie1:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie21[i] =='-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie1[i]!=especie21[i] and especie21[i]!= '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a",cont,",mismatches igual a",cont1,"e de Gap é",cont2,":\n")
+            print("Matches nos indices    -> ",lista)
+            print("Mismatches nos indices -> ",lista1)
+            print("Gap nos indices        -> ",lista2)
+        elif len(especie2)>len(especie1):
+            tracinho1=(len(especie2)-len(especie1))
+            print(especie2)
+            especie11= tracinho1*'-'+especie1
+            print(especie11)
+            for i in range(len(especie2)):
+                if especie11[i]==especie2[i]:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie11[i] =='-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie11[i]!=especie2[i] and especie1[i]!= '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a", cont, ",mismatches igual a", cont1, "e de Gap é",cont2,":\n ")
+            print("Matches nos indices    -> ", lista)
+            print("Mismatches nos indices -> ", lista1)
+            print("Gap nos indices        -> ", lista2)
+        else:
+            print(especie2)
+            print(especie1)
+            for i in range(len(especie2)):
+                if especie1[i] == especie2[i]:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie1[i] == '-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie1[i] != especie2[i] and especie1[i] != '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a", cont, ",mismatches igual a", cont1, "e de Gap é",cont2,"\n")
+            print("Matches nos indices    -> ", lista)
+            print("Mismatches nos indices -> ", lista1)
+            print("Gap nos indices        -> " , lista2)
+    #____________________________________________________________________2
+    elif opcao == '2':
+        if len(especie1) > len(especie2):
+            tracinho = (len(especie1) - len(especie2))
+            print(especie1)
+
+            especie21 = especie2 + tracinho * '-'
+            print(especie21)
+            for i in range(len(especie1)):
+
+                if especie21[i] == especie1:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie21[i] == '-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie1[i] != especie21[i] and especie21[i] != '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a", cont, ",mismatches igual a", cont1, "e de Gap é",cont2,"\n")
+            print("Matches nos indices    -> ", lista)
+            print("Mismatches nos indices -> ", lista1)
+            print("Gap nos indices        -> ", lista2)
+            menu3d()
+        elif len(especie2) > len(especie1):
+            tracinho1 = (len(especie2) - len(especie1))
+            print(especie2)
+            especie11 = especie1 + tracinho1 * '-'
+            print(especie11)
+            for i in range(len(especie2)):
+                if especie11[i] == especie2[i]:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie11[i] == '-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie11[i] != especie2[i] and especie1[i] != '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a", cont, ",mismatches igual a", cont1, "e de Gap é", cont2,"\n")
+            print("Matches nos indices    -> ", lista)
+            print("Mismatches nos indices -> ", lista1)
+            print("Gap nos indices        -> ", lista2)
+        else:
+            print(especie2)
+            print(especie1)
+
+            for i in range(len(especie2)):
+                if especie1[i] == especie2[i]:
+                    lista.append(i)
+                    cont = cont + 1
+                elif especie1[i] == '-':
+                    lista1.append(i)
+                    cont1 = cont1 + 1
+                elif especie1[i] != especie2[i] and especie1[i] != '-':
+                    lista2.append(i)
+                    cont2 = cont2 + 1
+            print(" As sequencia tem o número de matches igual a", cont, ",mismatches igual a", cont1, "e de Gap é",cont2, ":\n")
+            print("Matches nos indices    ->", lista)
+            print("Mismatches nos indices ->", lista1)
+            print("Gap nos indices        ->", lista2)
+    else:
+        print(" Não intruduzio nenhuma das opções .")
+        menu3d()
+#exercicio 3 opcao e
+def exercicio_3e():
+    print("*************************************************************************************")
+    print("     Deseja que as sequencias sejam :")
+    print("     A.- Escritas manualmente .")
+    print("     B.- Escolher o tamanho das sequencias aleatorias .")
+    print("*************************************************************************************")
+    opcao = input(" \t ")
+    if opcao == "A" or opcao == 'a':
+        seq1 = input("Intruduza a 1ª Sequencia : ").upper()
+        seq2 = input("Intruduza a 2ª Sequencia : ").upper()
+        menu3e2(seq1,seq2)
+        menu3()
+    elif opcao == "b" or opcao =='B':
+        x =a2()
+        y= a2()
+        print(" A 1ªsequencia :",x)
+        print(" A 2ªsequencia :", y)
+        menu3e2(x,y)
+        menu3()
+    else:
+        print(" Não intruduziu nenhuma das opcoes (A ou B).")
+        exercicio_3e()
+
+
+def menu3e2(x,y):
+    alignments = pairwise2.align.globalxx(x,y)
+    lista = []
+    for i in range(len(alignments)):
+        ali = alignments[i]
+        lista.append(ali[0])
+        lista.append(ali[1])
+    listaFinal = [lista[i:i + 2] for i in range(0, len(lista), 2)]
+    print("Existem ",len(listaFinal),"hipóteses de alinhamento de sequências, e essas hipóteses são: ")
+    for i in range(len(listaFinal)):
+        print("Lista ",i + 1," :  ",listaFinal[i])
+
+
+# __________________________________________________________________________menu 4_________________________
+
+def menu3():  # menu que serve para : Alinhar sequencias
+
+    print("\n\t \033[0;33mAlinhar sequencias .\033[m ")
+    print("******************************************************************************************** ")
+    print("     O que deseja fazer ? \n")
+    print("     a. Apagar um elemento da sequência, substituindo-o por ‘-‘  ")
+    print("     b. Adicionar um novo elemento ‘-‘ à sequência, numa determinada posição ")
+    print("     c. mostrar a distância de Hamming entre duas sequências com o mesmo comprimento. ")
+    print("     d. mostrar o número de matches e mismatches entre as duas sequências.\n\t"
+          " Se uma sequência for de menor comprimento do que outra, essa diferença de comprimento entre as"
+          " duas sequências deverá ser preenchida com ‘-‘.   ")
+
+    print("     e. alinhar duas sequências e guardar numa lista de sequencias alinhadas")
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu  ")
+    print("******************************************************************************************* \n")
+    opcao1 = input("\t ")
+
+    if (opcao1 == 'a' or opcao1 == 'A'):
+        menu3a()
+        menu3()
+    elif (opcao1 == 'b' or opcao1 == 'B'):
+        menu3b1()
+    elif (opcao1 == 'c' or opcao1 == 'C'):
+        menu3ca()
+        menu3()
+    elif (opcao1 == 'd' or opcao1 == 'D'):
+        menu3d()
+        menu3()
+    elif (opcao1 == 'e' or opcao1 == 'E'):
+        exercicio_3e()
+    elif (opcao1 == 'v' or opcao1 == 'V'):
+        menuV()
+    elif (opcao1 == 's'or opcao1=='S'):                                                                                 # caso o utilizador deseje sair do programa
+        sys.exit("\t SAIU DO PROGRAMA ")
+    else:
+        print(" Não selecionaste nunhuma letra .")
+        menu3()
+
+def guardar_sequencias(f, sequencia):
+    f = open(fn, 'w')# Abre o ficheiro para escrita
+    line = sequencia # a lina é igual a sequencia
+    f.write(line) # escrever a sequencia da lina
+    return line # devolve a lina
+
+def menu4b():
+    printsTipoSequencia()
+    opcao = input(" \t ")
+    if opcao ==  'a' or opcao == 'A':
+        a1()
+        guardar_sequencias(fn, a1seq)
+
+# ____________________________________________________________________________menu 5_________________________
+def menu5a1(x):
+    list1 = list(a1seq)
+    rep = a1seq.replace("A",'1').replace("C",'2').replace("T",'3').replace("G",'4')
+    list2 = list(rep)
+
+    sns.set_style("darkgrid")  # mudar o estilo do gráfico
+    fig = pl.figure()
+    ax1 = fig.add_subplot(111)
+    ax1.plot(np.arange(len(list1)), list2,"o", color="steelblue")
+    ax1.set_xticks(np.arange(len(list1)))
+    ax1.set_xticklabels(list1)
+    pl.xlabel("Sequência de DNA")
+    pl.ylabel("Valores")
+    pl.title("Nucleótido representado por um número ")
+    pl.show()
+def menu5b():
+
+
+    a1()
+    list1= list(a1seq)
+    a2()
+    lista2=list(a2seq)
+    sns.set(style="darkgrid", context="paper")  # mudar o estilo e o contexto do gráfico
+    #figura
+    pl.figure("Graficos com a distribuição de cada nucleótido nas diferentes sequências. ")
+    #fig.suptitle()
+    #pl.tight_layout()
+
+    #hitograma 1
+    pl.subplot(231)
+    pl.hist(list1, color="r")
+    pl.xlabel("Nucleotidos")
+    pl.ylabel("Frequência")
+    pl.title("Sequência Manual(231)")
+
+    #hist2
+    pl.subplot(232)
+    pl.hist(lista2, color="c")
+    pl.xlabel("Nucleotidos")
+    pl.ylabel("Frequência")
+    pl.title("Sequência Aleatória(232)")
+
+    lista12 = list(a1seq)
+
+    hist3 = pl.subplot(233)
+    # colocar as sequencias em listas
+    pl.hist(lista12, color="g")
+    pl.xlabel("Nucleotidos")
+    pl.ylabel("Frequência")
+    pl.title("Sequência guardada num Ficheiro")
+
+    hist4 = pl.subplot(234)
+    pl.hist(lista12, color="k")
+    pl.xlabel("Nucleotidos")
+    pl.ylabel("Frequência")
+    pl.title("Sequência guardada numa Lista")
+#--------------------------------------------------------------------
+    hist1 = pl.subplot(231)
+    pl.hist(lista12, color="r")
+    pl.xlabel("Nucleotidos")
+    pl.ylabel("Frequência")
+    pl.title("Sequência Manual")
+
+
+    hist2 = pl.subplot(233)
+    pl.hist(lista12, color="c")
+    pl.xlabel("Nucleotidosttttt")
+    pl.ylabel("Frequênciaffffffff")
+    pl.title("Sequência Aleatóriafff")
+
+    pl.tight_layout()
+    pl.show()
+
+
+def defmenu5a():
+    print(" Visualizar")
+    print("******************************************************************************************* ")
+    print("      Deseja saber: ? \n")
+    print("     a. De uma sequência escrita manualmente (agora)")
+    print("     b. De uma sequência aleatória (considere o conjunto de nucleótidos A, T, G, C)(agora) \n ")
+    print("     c. Da sequencia que intruduziu manualmente anteriormente no menu 1 ?")
+    print("     d. De uma sequência aleatória (considere o conjunto de nucleótidos A, T, G, C) escrita anteriormente no menu 1 ? ")
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu  ")
+    print("******************************************************************************************* \n")
+
+    opcao1 = input(" \t ")
+
+    if (opcao1 == 'a' or opcao1 == 'A'):
+            a1()
+            menu5a1(a1seq)
+
+    if (opcao1 == 'b' or opcao1 == 'B'):
+        a2()
+        menu5a1(a2seq)
+
+    if (opcao1 == 'c' or opcao1 == 'C'):
+        menu5a1(a1seq)
+
+    if (opcao1 == 'd' or opcao1 == 'D'):
+        menu5a1(a2seq)
+
+def menu5():  # menu que serve para :  Visualizar
+    print("\n\t \033[0;35mVisualizar\033[m")
+    print("******************************************************************************************* ")
+    print("     O que deseja fazer ? \n")
+
+    print("     a. Mostrar num gráfico XY, a sequência de DNA (represente no eixo XX cada elemento da sequência e no eixo YY o respetivo nucleótido representado por um número)  ")
+    print("     b. Mostrar uma figura com 4 gráficos do tipo histograma, para representar a distribuição de cada nucleótido nas diferentes sequências. ")
+
+    print("     S. Sair do programa .")
+    print("     V. Ir para um outro menu  ")
+    print("******************************************************************************************* \n")
+
+    opcao1 = input("\t")
+
+    if (opcao1 == 'a' or opcao1 == 'A'):
+        defmenu5a()
+        menu5()
+
+    if (opcao1 == 'b' or opcao1 == 'B'):
+        menu5b()
+        menu5()
+
+    elif (opcao1 == 's'):
+        sys.exit("\t SAIU DO PROGRAMA ")
+
+    if (opcao1 == 'v' or opcao1 == 'V'):
+        menuV()
+
+# ____________________________________________________________________________menu V_________________________
+
+def menuV():
+    print("\n\t MENUS DA ESCOLHA V  ")
+    print("******************************************************************************************* ")
+    print("     Para qual menu deseja voltar?\n ")
+    print("     i.- Menu Inicial ")
+    print("     1.- Menu 1 ( analizar uma sequencia )")
+    print("     2.- Menu 2 (Analisar um conjunto de sequências) ")
+    print("     3.- Menu 3 ( Alinhar sequências ) ")
+    print("     4.- Menu 4 (Operações com ficheiros de sequências)")
+    print("     5.- Menu 5 (Visualizar)")
+    print("     S.- Sair do programa ")
+    print("******************************************************************************************* \n")
+    opcao1 = input(" \t ")
+    if (opcao1 == '1'):  # a1
+        menu1()
+    elif (opcao1 == '2'):
+        menu21()
+    elif (opcao1 == '3'):
+        menu3()
+    elif (opcao1 == '4'):
+        menu4()
+    elif (opcao1 == '5'):
+        menu5()
+    elif (opcao1 == 's'):
+        sys.exit("\t SAIU DO PROGRAMA ")
+    elif (opcao1 == 'i' or opcao1 == 'I'):
+        menu_Inicial()
+    else:
+        print(" \nNão intruduziu nunhum carater da lista \n")
+        menuV()
+
+        # ------------------- funcoes que vao ser utlizaadas dentro dos menus ------------------------------------
+
+        # variavel.upper() ----> serve para aumentar as letras a = A
+        # graficos interativos :seaborn gallary , plotly
+
+        '''
+        verificar = input(" o que deseja fazer? \n 1.verificar a sua sequencia , 2. voltar ao menu da analise da sequencia(menu1) ? \n\n")
+        if verificar == '1':
+            print(a2seq.upper())
+        elif verificar == '2':
+            menu1()
+        else:
+            print(" NAo intruduziu nenhuma escolha , Intruduza: \n 1.verificar a sua sequencia ou 2. voltar ao menu d analise da sequencia(menu1) ")
+        menu1()
+        return a2seq
+        '''
+
+        # opcao4 = input("para Mostrar o número de ocorrências de uma determinada base ou sub-sequência e uma lista dos respetivos índice , percisa de ter uma seuqencia deseja\n "
+        #          "utiliza a sequencia 1.manual,  da 2.aleatorio ou 3.desja escrever uma navo seque sequencia (caso nao tenha escrito)  \n")
+
+
+
+
+
+def ungap(seq,gap):
+
+    if gap in seq:
+        index_gap = seq.find(gap)
+        seq = seq[:index_gap] + seq[(index_gap+1):]
+        ungap(seq,gap)
+    else:
+        print(seq)
+        return seq
+
+
+if __name__ == '__main__':
+   seq = input('sequnecia:')
+   gap = '-'
+   seqq = ungap(seq,gap)
+   print(seqq)
+
+
+
+
+
+
+
+
